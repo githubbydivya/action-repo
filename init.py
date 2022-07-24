@@ -6,6 +6,17 @@ from dateutil.parser import parse
 
 # from python-dateutil import dateutil
 
+def special_nth_day(formatted_date: str,
+                    dic={'0': 'th', '1': 'st', '2': 'nd', '3': 'rd', '4': 'th', '5': 'th', '6': 'th', '7': 'th',
+                         '8': 'th', '9': 'th'}):
+    formatted_date_list = list(formatted_date)
+    char_date = formatted_date_list[1]
+    val_from_dic = dic[char_date]
+    formatted_date_list[2] = val_from_dic
+
+    formatted_date_list_new = ''.join(formatted_date_list)
+    return formatted_date_list_new
+
 
 def check_method():
     print("Hello World")
@@ -36,13 +47,15 @@ print(parse_date_convert(datezString))
 so = datetime.fromisoformat(date_val).astimezone(pytz.utc)
 so_1 = datetime.fromisoformat(datestring).astimezone(pytz.utc)
 # so_2 = datetime.fromisoformat(datezString).astimezone(pytz.utc)
-    # datetime.datetime.strptime(date_val, '%Y-%m-%dT%H:%M:%S%z').astimezone(pytz.utc)
+# datetime.datetime.strptime(date_val, '%Y-%m-%dT%H:%M:%S%z').astimezone(pytz.utc)
 print("so:", so, so_1)
 
-months_in_year = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+months_in_year = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+                  'November', 'December']
 date = '2021-11-21 11:22:03'
 # month = date.dt.month
 # month_name = months_in_year[month - 1]
 dt_obj = datetime.strptime(datestring, '%Y-%m-%dT%H:%M:%S%z')
 dt_obj_utc = dt_obj.astimezone(timezone.utc)
 print(dt_obj_utc.strftime("%d %c %B %Y %H:%M %p %Z"))
+print(special_nth_day(dt_obj_utc.strftime("%d  %B %Y %H:%M %p %Z")))
