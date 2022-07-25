@@ -11,11 +11,17 @@ def special_nth_day(formatted_date: str,
     formatted_date_list = list(formatted_date)
     char_date_0 = formatted_date_list[0]
     char_date_1 = formatted_date_list[1]
-    if char_date_0 != '1':
-        val_from_dic = dic[char_date_1]
-        formatted_date_list[2] = val_from_dic
-    else:
+    if char_date_0 == '1':
         formatted_date_list[2] = 'th'
+    elif char_date_0 == '0' or char_date_0 == '2' or char_date_0 == '3':
+        val_from_dic = None
+        if char_date_1 in dic:
+            val_from_dic = dic[char_date_1]
+        if val_from_dic:
+            formatted_date_list[2] = val_from_dic
+        else:
+            formatted_date_list[2] = 'th'
+
     formatted_date_list_new = ''.join(formatted_date_list)
     return formatted_date_list_new
 
