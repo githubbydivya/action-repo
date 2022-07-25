@@ -7,13 +7,15 @@ from dateutil.parser import parse
 # from python-dateutil import dateutil
 
 def special_nth_day(formatted_date: str,
-                    dic={'0': 'th', '1': 'st', '2': 'nd', '3': 'rd', '4': 'th', '5': 'th', '6': 'th', '7': 'th',
-                         '8': 'th', '9': 'th'}):
+                    dic={'1': 'st', '2': 'nd', '3': 'rd'}):
     formatted_date_list = list(formatted_date)
-    char_date = formatted_date_list[1]
-    val_from_dic = dic[char_date]
-    formatted_date_list[2] = val_from_dic
-
+    char_date_0 = formatted_date_list[0]
+    char_date_1 = formatted_date_list[1]
+    if char_date_0 != '1':
+        val_from_dic = dic[char_date_1]
+        formatted_date_list[2] = val_from_dic
+    else:
+        formatted_date_list[2] = 'th'
     formatted_date_list_new = ''.join(formatted_date_list)
     return formatted_date_list_new
 
@@ -35,8 +37,8 @@ def parse_date_convert(date, fmt=None):
     return str(get_date_obj.strftime(fmt))
 
 
-date_val = '2022-07-24T14:35:48+05:30'
-datestring = '2022-07-24T14:52:28+05:30'
+date_val = '2022-07-25T14:35:48+05:30'
+datestring = '2022-07-27T14:52:28+05:30'
 datezString = '2022-07-24T09:22:28Z'
 # d = dateutil.parser.parse(datestring)
 # dtutc = date_val.astimezone(timezone.utc)
